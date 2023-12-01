@@ -29,7 +29,7 @@ fn calc_total(part: u32) -> u32 {
         ("nine", '9'),
     ]);
 
-    if let Ok(lines) = read_lines("../input.txt") {
+    if let Ok(lines) = read_lines("../../data/day1/input.txt") {
         for line in lines {
             let mut values = Vec::new();
             if let Ok(word) = line {
