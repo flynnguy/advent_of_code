@@ -16,7 +16,7 @@ numbers = {
 
 def day1(part):
     total = 0
-    with open("input.txt", "r") as words:
+    with open("../input.txt", "r") as words:
         lines = words.readlines()
 
     for line in lines:
