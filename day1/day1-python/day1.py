@@ -34,5 +34,5 @@ def day1(part):
     return total
 
 if __name__ == "__main__":
-	print(f" Part 1 solution: {day1(1)}")
-	print(f" Part 2 solution: {day1(2)}") # Should be 54770
+	print(f"Part 1 solution: {day1(1)}") # Should be 54630
+	print(f"Part 2 solution: {day1(2)}") # Should be 54770
