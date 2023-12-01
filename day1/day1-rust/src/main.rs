@@ -3,6 +3,8 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
+// Efficiently readlines from:
+// https://doc.rust-lang.org/stable/rust-by-example/std_misc/file/read_lines.html
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where
     P: AsRef<Path>,
@@ -11,9 +13,11 @@ where
     Ok(io::BufReader::new(file).lines())
 }
 
+// This is similar to my python solution
 fn calc_total(part: u32) -> u32 {
     let mut total: u32 = 0;
     let numbers = HashMap::from([
+        // values us `'` because it creates a character literal
         ("one", '1'),
         ("two", '2'),
         ("three", '3'),
@@ -24,6 +28,7 @@ fn calc_total(part: u32) -> u32 {
         ("eight", '8'),
         ("nine", '9'),
     ]);
+
     if let Ok(lines) = read_lines("../input.txt") {
         for line in lines {
             let mut values = Vec::new();
@@ -32,10 +37,9 @@ fn calc_total(part: u32) -> u32 {
                     if x.is_digit(10) {
                         values.push(x);
                     } else if part == 2 {
-                        for foo in numbers.keys() {
-                            if word[i..].starts_with(foo) {
-                                // println!("{:?}", numbers.get(foo).unwrap());
-                                values.push(*numbers.get(foo).unwrap());
+                        for digit in numbers.keys() {
+                            if word[i..].starts_with(digit) {
+                                values.push(*numbers.get(digit).unwrap());
                             }
                         }
                     }
