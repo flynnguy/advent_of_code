@@ -1,6 +1,5 @@
 use aocf::Aoc;
 use std::collections::HashMap;
-use std::env;
 
 // Should probably move this into a library
 fn get_input() -> String {
@@ -20,7 +19,7 @@ fn get_input() -> String {
 }
 
 // This is similar to my python solution
-fn calc_total(part: u32) -> u32 {
+fn calc_total(input: String, part: u32) -> u32 {
     let mut total: u32 = 0;
     let numbers = HashMap::from([
         // values us `'` because it creates a character literal
@@ -35,7 +34,7 @@ fn calc_total(part: u32) -> u32 {
         ("nine", '9'),
     ]);
 
-    for line in get_input().split("\n") {
+    for line in input.split("\n") {
         if !line.is_empty() {
             let mut values = Vec::new();
             for (i, x) in line.chars().enumerate() {
@@ -58,7 +57,26 @@ fn calc_total(part: u32) -> u32 {
 }
 
 fn main() -> std::io::Result<()> {
-    println!("Part 1 solution: {}", calc_total(1));
-    println!("Part 2 solution: {}", calc_total(2));
+    println!("Part 1 solution: {}", calc_total(get_input(), 1));
+    println!("Part 2 solution: {}", calc_total(get_input(), 2));
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_part_1() {
+        let input = "1abc2\npqr3stu8vwx\na1b2c3d4e5f\ntreb7uchet";
+        let result = calc_total(input.to_string(), 1);
+        assert_eq!(result, 142);
+    }
+
+    #[test]
+    fn test_part_2() {
+        let input = "two1nine\neightwothree\nabcone2threexyz\nxtwone3four\n4nineeightseven2\nzoneight234\n7pqrstsixteen";
+        let result = calc_total(input.to_string(), 2);
+        assert_eq!(result, 281);
+    }
 }
