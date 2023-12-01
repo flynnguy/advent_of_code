@@ -1,16 +1,22 @@
+use aocf::Aoc;
 use std::collections::HashMap;
-use std::fs::File;
-use std::io::{self, BufRead};
-use std::path::Path;
+use std::env;
 
-// Efficiently readlines from:
-// https://doc.rust-lang.org/stable/rust-by-example/std_misc/file/read_lines.html
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where
-    P: AsRef<Path>,
-{
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
+// Should probably move this into a library
+fn get_input() -> String {
+    let mut aoc = Aoc::new()
+        .year(Some(2023))
+        .day(Some(1))
+        .cookie_file("../../.adventofcode.session")
+        .init()
+        .unwrap();
+
+    let input = if let Ok(i) = aoc.get_input(false) {
+        i
+    } else {
+        "You probably need to set your cookie".to_string()
+    };
+    input
 }
 
 // This is similar to my python solution
@@ -29,18 +35,16 @@ fn calc_total(part: u32) -> u32 {
         ("nine", '9'),
     ]);
 
-    if let Ok(lines) = read_lines("../../data/day1/input.txt") {
-        for line in lines {
+    for line in get_input().split("\n") {
+        if !line.is_empty() {
             let mut values = Vec::new();
-            if let Ok(word) = line {
-                for (i, x) in word.chars().enumerate() {
-                    if x.is_digit(10) {
-                        values.push(x);
-                    } else if part == 2 {
-                        for digit in numbers.keys() {
-                            if word[i..].starts_with(digit) {
-                                values.push(*numbers.get(digit).unwrap());
-                            }
+            for (i, x) in line.chars().enumerate() {
+                if x.is_digit(10) {
+                    values.push(x);
+                } else if part == 2 {
+                    for digit in numbers.keys() {
+                        if line[i..].starts_with(digit) {
+                            values.push(*numbers.get(digit).unwrap());
                         }
                     }
                 }
