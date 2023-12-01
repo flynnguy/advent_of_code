@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import re
+from aocd import get_data
 
 numbers = {
     "one": "1",
@@ -16,8 +17,7 @@ numbers = {
 
 def day1(part):
     total = 0
-    with open("../input.txt", "r") as words:
-        lines = words.readlines()
+    lines = get_data(day=1, year=2023).split("\n")
 
     for line in lines:
         values = []
@@ -34,5 +34,5 @@ def day1(part):
     return total
 
 if __name__ == "__main__":
-	print(f"Part 1 solution: {day1(1)}") # Should be 54630
-	print(f"Part 2 solution: {day1(2)}") # Should be 54770
+    print(f"Part 1 solution: {day1(1)}") # Should be 54630
+    print(f"Part 2 solution: {day1(2)}") # Should be 54770
