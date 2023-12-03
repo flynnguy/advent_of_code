@@ -14,3 +14,4 @@ Cargo.lock
 *.pdb
 .adventofcode.session
 __pycache__/
+.aocf/

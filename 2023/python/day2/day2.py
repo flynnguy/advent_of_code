@@ -38,7 +38,6 @@ def part1(lines, red, green, blue):
                     break
         game_ids -= bad_game_ids
 
-                
     total = 0
     for game in game_ids:
         total += int(game)
